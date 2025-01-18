@@ -36,6 +36,7 @@
   ],
   "scripts": {
     "build-fast": "tsup src/index.ts --format cjs,esm && tsup src/cli.ts",
+    "prepare": "pnpm run build-fast --dts-resolve",
     "build": "pnpm run build-fast --dts-resolve",
     "prepublishOnly": "pnpm run build",
     "test": "jest"
