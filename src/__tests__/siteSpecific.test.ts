@@ -33,8 +33,8 @@ describe('getRecipeData', () => {
             "12 ounce Yukon Gold Potatoes",
             "1 teaspoon Dried Oregano",
             "4 teaspoon Olive Oil",
-            "unit Salt",
-            "unit Pepper",
+            "Salt",
+            "Pepper",
         ]);
         expect(recipe.recipeInstructions).toEqual([
             "Wash and dry all produce. Preheat oven to 425 degrees. Cut potatoes into ½-inch-thick wedges, like steak fries. Core and quarter tomatoes.",
@@ -78,7 +78,7 @@ describe('getRecipeData', () => {
         expect(recipe.recipeYield).toBe(null);
         expect(recipe.recipeIngredients).toEqual([
             '1 (7-pound), first-cut beef standing rib roast (3 bones), meat removed from bones, bones reserved',
-            ', Kosher salt and ground black pepper',
+            'Kosher salt and ground black pepper',
             '2 teaspoons, vegetable oil',
         ]);
         expect(recipe.recipeInstructions).toEqual([

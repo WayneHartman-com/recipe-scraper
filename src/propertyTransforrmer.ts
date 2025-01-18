@@ -68,11 +68,17 @@ export function transformToTime(value: string) {
 }
 
 export function cleanString(str: string) {
-  return str
+  let cleaned = str
     .replace(MATCH_HTML_TAGS, '')
     .replace(MATCH_LINE_BREAK, ' ')
     .replace(MATCH_MULTI_SPACE, ' ')
     .trim()
+
+  if (cleaned.startsWith(', ')) {
+    cleaned = cleaned.slice(1).trim()
+  }
+
+  return cleaned
 }
 
 export function transformToCleanString(value: string) {
@@ -115,7 +121,7 @@ export function transformInstructions(value: string | Record<string, any>) {
 }
 
 function cleanIngredientAmounts(line: string) {
-  return line
+  let cleaned = line
     .replace(/¼/g, '1/4')
     .replace(/½/g, '1/2')
     .replace(/¾/g, '3/4')
@@ -123,6 +129,16 @@ function cleanIngredientAmounts(line: string) {
     .replace(MATCH_HTML_TAGS, '')
     .replace(MATCH_MULTI_SPACE, ' ')
     .trim()
+
+  if (cleaned.startsWith(', ')) {
+    cleaned = cleaned.slice(1).trim()
+  }
+
+  if (cleaned.startsWith('unit ')) {
+    cleaned = cleaned.slice(4).trim()
+  }
+
+  return cleaned
 }
 
 export function transformIngredients(value: Record<string, any>): string[] {
