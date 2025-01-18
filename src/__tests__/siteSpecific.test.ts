@@ -23,7 +23,7 @@ describe('getRecipeData', () => {
         expect(recipe.cookTime).toBe(undefined);
         expect(recipe.prepTime).toBe(undefined);
         expect(recipe.totalTime).toBe('30 minutes');
-        expect(recipe.recipeYield).toBe(2);
+        expect(recipe.recipeYield).toBe('2');
         expect(recipe.recipeIngredients).toEqual([
             "12 ounce Chicken Breasts",
             "1/2 cup Mozzarella Cheese",
@@ -75,7 +75,7 @@ describe('getRecipeData', () => {
         expect(recipe.cookTime).toBe(undefined);
         expect(recipe.prepTime).toBe(undefined);
         expect(recipe.totalTime).toBe(undefined);
-        expect(recipe.recipeYield).toBe(null);
+        expect(recipe.recipeYield).toBe('Serves 6 to 8');
         expect(recipe.recipeIngredients).toEqual([
             '1 (7-pound), first-cut beef standing rib roast (3 bones), meat removed from bones, bones reserved',
             'Kosher salt and ground black pepper',

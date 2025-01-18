@@ -11,10 +11,10 @@ export interface IRecipe {
   name: string
   image: string
   description: string
-  cookTime: string
-  prepTime: string
-  totalTime: string
-  recipeYield: string
+  cookTime: string|undefined
+  prepTime: string|undefined
+  totalTime: string|undefined
+  recipeYield: string|undefined
   recipeIngredients: string[]
   recipeInstructions: string[]
   recipeCategories: string[]

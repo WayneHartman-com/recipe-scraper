@@ -31,8 +31,21 @@ export function transformToString(value: string) {
   if (typeof value === 'string')
     return value
 
-  if (Array.isArray(value))
-    return value[0]
+  if (Array.isArray(value)) {
+    const array = value as [];
+    if (array.length > 0) {
+      const filtered = array.filter((item) => {
+        return (typeof item === 'string');
+      });
+      if (filtered.length > 0) {
+        return filtered[0];
+      }
+    }
+  }
+
+  if (typeof value === 'number') {
+    return `${value}`;
+  }
 
   return value
 }
@@ -56,7 +69,13 @@ export function transformISOToString(dateObj: Record<string, any>) {
 }
 
 export function transformToTime(value: string) {
+  if (!value) {
+    return null;
+  }
   const time = transformToString(value)
+  if (!time) {
+    return null;
+  }
   try {
     const parsedISODuration = parse(time)
     if (parsedISODuration)
