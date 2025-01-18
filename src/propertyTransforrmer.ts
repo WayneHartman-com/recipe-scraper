@@ -93,6 +93,18 @@ export function transformInstructions(value: string | Record<string, any>) {
     if (typeof firstItem === 'string')
       return value.map(item => cleanString(item))
 
+    if (typeof firstItem === 'object' && !Array.isArray(firstItem)) {
+      const itemList = firstItem.itemListElement;
+      if (itemList && Array.isArray(itemList)) {
+        return itemList.map((item) => {
+          if (item.text)
+            return cleanString(item.text)
+
+          return undefined
+        })
+      }
+    }
+
     return value.map((item) => {
       if (item.text)
         return cleanString(item.text)

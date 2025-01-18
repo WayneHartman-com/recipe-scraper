@@ -48,7 +48,7 @@ function prettifyRecipe(recipe: Recipe, url: string) {
 
   Object.entries(consolidatedRecipe).forEach(([key, value]) => {
     const propertyTransformer = propertyTransformerMap[key as keyof typeof propertyTransformerMap]
-    if (value)
+    if (value && propertyTransformer)
       transformedRecipe[key] = propertyTransformer(value)
   })
 
