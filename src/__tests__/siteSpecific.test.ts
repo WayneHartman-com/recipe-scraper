@@ -18,6 +18,7 @@ describe('getRecipeData', () => {
             throw new Error('Recipe not found');
         }
         expect(recipe.name).toBe('Mozzarella-Crusted Chicken with Blistered Tomatoes and Potato Wedges');
+        expect(recipe.author).toBe('HelloFresh');
         expect(recipe.image).toBe('https://img.hellofresh.com/f_auto,fl_lossy,h_640,q_auto,w_1200/hellofresh_s3/image/de-mozzarella-crusted-chicken-w0-4336bddd.jpg');
         expect(recipe.description).toBe('Think of this recipe as a new take on chicken Parmesan. Herbs, breadcrumbs, and mozzarella are heaped onto chicken to create glorious crown of a crust. In place of marinara, roasted tomatoes add a sweet and tangy punch. On the side, you’ve also got some crispy potatoes because, hey, why not?');
         expect(recipe.cookTime).toBe(undefined);
@@ -70,6 +71,7 @@ describe('getRecipeData', () => {
             throw new Error('Recipe not found');
         }
         expect(recipe.name).toBe('Best Prime Rib');
+        expect(recipe.author).toBe('America\'s Test Kitchen');
         expect(recipe.image).toBe('https://res.cloudinary.com/hksqkdlah/image/upload/ar_1:1,c_fill,dpr_2.0,f_auto,fl_lossy.progressive.strip_profile,g_faces:auto,q_auto:low,w_150/25851_sfs-best-prime-rib-21');
         expect(recipe.description).toBe('Top chefs say 18 hours in a 120-degree oven is the route to prime rib perfection. What if we told you it was possible in almost one-third the time? The perfect prime rib should have a deep-colored, substantial crust encasing a tender, juicy rosy-pink center. To achieve this perfect roast, we started by salting the roast overnight. The salt enhanced the beefy flavor while dissolving some of the proteins, yielding a buttery-tender roast. To further enhance tenderness, we cooked the roast at a very low temperature, which allowed the meat\'s enzymes to act as natural tenderizers, breaking down its tough connective tissue. A brief stint under the broiler before serving ensured a crisp, flavorful crust.');
         expect(recipe.cookTime).toBe(undefined);
@@ -111,6 +113,7 @@ describe('getRecipeData', () => {
             throw new Error('Recipe not found');
         }
         expect(recipe.name).toBe('Sirloin Steak with Garlic Butter');
+        expect(recipe.author).toBe('Maryellen');
         expect(recipe.image).toBe('https://www.allrecipes.com/thmb/OJ28fIFte6Pyg93ML8IM-APbu1Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-14554-sirloin-steak-with-garlic-butter-hero-4x3-d12fa79836754fcf850388e4677bbf55.jpg');
         expect(recipe.description).toBe('This grilled sirloin steak recipe includes a super garlicky melted butter that&#39;s made with freshly minced garlic and garlic powder. Simply delicious!');
         expect(recipe.cookTime).toBe('10 minutes');

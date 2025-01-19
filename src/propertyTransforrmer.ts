@@ -50,6 +50,30 @@ export function transformToString(value: string) {
   return value
 }
 
+export function transformToAuthor(value: string | Record<string, string>) {
+    if (typeof value === 'string')
+        return value
+
+    if (value.name)
+        return value.name
+
+    if (Array.isArray(value)) {
+        const array = value as any[];
+        if (array.length > 0) {
+          const first = array[0];
+            if (typeof first === 'string') {
+                return first;
+            }
+
+            if (first.name) {
+              return first.name;
+            }
+        }
+    }
+
+    return value
+}
+
 export function transformISOToString(dateObj: Record<string, any>) {
   let date = ''
 
@@ -185,6 +209,7 @@ export function transformIngredients(value: Record<string, any>): string[] {
 
 const propertyTransformerMap = {
   name: transformToString,
+  author: transformToAuthor,
   image: transformImage,
   description: transformToCleanString,
   cookTime: transformToTime,

@@ -14,6 +14,7 @@ describe('getRecipeData', () => {
                     {
                         "@context": "http://schema.org",
                         "@type": "Recipe",
+                        "author": "GitHub Copilot",
                         "name": "Creamy Courgette & Potato Bake",
                         "image": "https://example.com/image.jpg",
                         "description": "A delicious creamy bake",
@@ -37,6 +38,7 @@ describe('getRecipeData', () => {
             throw new Error('Recipe not found');
         }
         expect(recipe.name).toBe('Creamy Courgette & Potato Bake');
+        expect(recipe.author).toBe('GitHub Copilot');
         expect(recipe.image).toBe('https://example.com/image.jpg');
         expect(recipe.description).toBe('A delicious creamy bake');
         expect(recipe.cookTime).toBe('1 hour');

@@ -8,6 +8,7 @@ export interface Options {
 
 export interface IRecipe {
   url: string
+  author: string|undefined
   name: string
   image: string
   description: string

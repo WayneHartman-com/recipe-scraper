@@ -23,6 +23,7 @@ const DEFAULT_OPTIONS = {
 function consolidateRecipeProperties(recipe: Record<string, any>): IRecipe {
   return {
     url: recipe.url,
+    author: recipe.author,
     name: recipe.name,
     image: recipe.image || recipe.thumbnailUrl,
     description: recipe.description,
