@@ -1,6 +1,8 @@
 import { parse } from 'iso8601-duration'
 import { MATCH_HTML_TAGS, MATCH_LINE_BREAK, MATCH_MULTI_SPACE } from './utils'
 
+const htmlCodes = {"&#9;":"\t","&#10;":"\n","&#32;":" ","&#33;":"!","&#35;":"#","&#36;":"$","&#37;":"%","&#38;":"&","&#39;":"'","&#40;":"(","&#41;":")","&#42;":"*","&#43;":"+","&#44;":",","&#45;":"-","&#46;":".","&#47;":"/","&#58;":":","&#59;":";","&#60;":"<","&#61;":"=","&#62;":">","&#63;":"?","&#64;":"@","&#91;":"[","&#92;":"\\","&#93;":"]","&#94;":"^","&#95;":"_","&#96;":"`","&#123;":"{","&#124;":"|","&#125;":"}","&#126;":"~","&#128;":"€","&#130;":"‚","&#131;":"ƒ","&#132;":"„","&#133;":"…","&#134;":"†","&#135;":"‡","&#136;":"ˆ","&#137;":"‰","&#138;":"Š","&#139;":"‹","&#140;":"Œ","&#142;":"Ž","&#145;":"‘","&#146;":"’","&#147;":"“","&#148;":"”","&#149;":"•","&#150;":"–","&#151;":"—","&#152;":"˜","&#153;":"™","&#154;":"š","&#155;":"›","&#156;":"œ","&#158;":"ž","&#159;":"Ÿ","&#160;":" ","&#161;":"¡","&#162;":"¢","&#163;":"£","&#164;":"¤","&#165;":"¥","&#166;":"¦","&#167;":"§","&#168;":"¨","&#169;":"©","&#170;":"ª","&#171;":"«","&#172;":"¬","&#173;":"-","&#174;":"®","&#175;":"¯","&#176;":"°","&#177;":"±","&#178;":"²","&#179;":"³","&#180;":"´","&#181;":"µ","&#182;":"¶","&#183;":"·","&#184;":"¸","&#185;":"¹","&#186;":"º","&#187;":"»","&#188;":"¼","&#189;":"½","&#190;":"¾","&#191;":"¿","&#192;":"À","&#193;":"Á","&#194;":"Â","&#195;":"Ã","&#196;":"Ä","&#197;":"Å","&#198;":"Æ","&#199;":"Ç","&#200;":"È","&#201;":"É","&#202;":"Ê","&#203;":"Ë","&#204;":"Ì","&#205;":"Í","&#206;":"Î","&#207;":"Ï","&#208;":"Ð","&#209;":"Ñ","&#210;":"Ò","&#211;":"Ó","&#212;":"Ô","&#213;":"Õ","&#214;":"Ö","&#215;":"×","&#216;":"Ø","&#217;":"Ù","&#218;":"Ú","&#219;":"Û","&#220;":"Ü","&#221;":"Ý","&#222;":"Þ","&#223;":"ß","&#224;":"à","&#225;":"á","&#226;":"â","&#227;":"ã","&#228;":"ä","&#229;":"å","&#230;":"æ","&#231;":"ç","&#232;":"è","&#233;":"é","&#234;":"ê","&#235;":"ë","&#236;":"ì","&#237;":"í","&#238;":"î","&#239;":"ï","&#240;":"ð","&#241;":"ñ","&#242;":"ò","&#243;":"ó","&#244;":"ô","&#245;":"õ","&#246;":"ö","&#247;":"÷","&#248;":"ø","&#249;":"ù","&#250;":"ú","&#251;":"û","&#252;":"ü","&#253;":"ý","&#254;":"þ","&#255;":"ÿ","&#8364;":"€","&#8482;":"™","&#8592;":"←","&#8593;":"↑","&#8594;":"→","&#8595;":"↓","&#8596;":"↔","&#8629;":"↵","&#8704;":"∀","&#8706;":"∂","&#8707;":"∃","&#8709;":"∅","&#8711;":"∇","&#8712;":"∈","&#8713;":"∉","&#8715;":"∋","&#8719;":"∏","&#8721;":"∑","&#8722;":"−","&#8727;":"∗","&#8730;":"√","&#8733;":"∝","&#8734;":"∞","&#8736;":"∠","&#8743;":"∧","&#8744;":"∨","&#8745;":"∩","&#8746;":"∪","&#8747;":"∫","&#8756;":"∴","&#8764;":"∼","&#8773;":"≅","&#8776;":"≈","&#8800;":"≠","&#8801;":"≡","&#8804;":"≤","&#8805;":"≥","&#8834;":"⊂","&#8835;":"⊃","&#8836;":"⊄","&#8838;":"⊆","&#8839;":"⊇","&#8853;":"⊕","&#8855;":"⊗","&#8869;":"⊥","&#8901;":"⋅","&#8968;":"⌈","&#8969;":"⌉","&#8970;":"⌊","&#8971;":"⌋","&#9674;":"◊","&#9824;":"♠","&#9827;":"♣","&#9829;":"♥","&#9830;":"♦","&Aacute;":"Á","&aacute;":"á","&Abreve;":"Ă","&abreve;":"ă","&Acirc;":"Â","&acirc;":"â","&acute;":"´","&AElig;":"Æ","&aelig;":"æ","&Agrave;":"À","&agrave;":"à","&Alpha;":"Α","&alpha;":"α","&Amacr;":"Ā","&amacr;":"ā","&amp;":"&","&and;":"∧","&ang;":"∠","&Aogon;":"Ą","&aogon;":"ą","&Aring;":"Å","&aring;":"å","&asymp;":"≈","&Atilde;":"Ã","&atilde;":"ã","&Auml;":"Ä","&auml;":"ä","&bdquo;":"„","&Beta;":"Β","&beta;":"β","&brvbar;":"¦","&bull;":"•","&Cacute;":"Ć","&cacute;":"ć","&cap;":"∩","&Ccaron;":"Č","&ccaron;":"č","&Ccedil;":"Ç","&ccedil;":"ç","&Ccirc;":"Ĉ","&ccirc;":"ĉ","&Cdot;":"Ċ","&cdot;":"ċ","&cedil;":"¸","&cent;":"¢","&Chi;":"Χ","&chi;":"χ","&circ;":"ˆ","&clubs;":"♣","&cong;":"≅","&copy;":"©","&crarr;":"↵","&cup;":"∪","&curren;":"¤","&dagger;":"†","&Dagger;":"‡","&darr;":"↓","&Dcaron;":"Ď","&dcaron;":"ď","&deg;":"°","&Delta;":"Δ","&delta;":"δ","&diams;":"♦","&divide;":"÷","&dot;":"·","&Dstrok;":"Đ","&dstrok;":"đ","&Eacute;":"É","&eacute;":"é","&Ebreve;":"Ĕ","&ebreve;":"ĕ","&Ecaron;":"Ě","&ecaron;":"ě","&Ecirc;":"Ê","&ecirc;":"ê","&Edot;":"Ė","&edot;":"ė","&Egrave;":"È","&egrave;":"è","&Emacr;":"Ē","&emacr;":"ē","&empty;":"∅","&emsp;":" ","&ENG;":"Ŋ","&eng;":"ŋ","&ensp;":" ","&Eogon;":"Ę","&eogon;":"ę","&Epsilon;":"Ε","&epsilon;":"ε","&equiv;":"≡","&Eta;":"Η","&eta;":"η","&ETH;":"Ð","&eth;":"ð","&Euml;":"Ë","&euml;":"ë","&euro;":"€","&exist;":"∃","&fnof;":"ƒ","&forall;":"∀","&frac12;":"½","&frac14;":"¼","&frac34;":"¾","&Gamma;":"Γ","&gamma;":"γ","&Gbreve;":"Ğ","&gbreve;":"ğ","&Gcedil;":"Ģ","&gcedil;":"ģ","&Gcirc;":"Ĝ","&gcirc;":"ĝ","&Gdot;":"Ġ","&gdot;":"ġ","&ge;":"≥","&gt;":">","&harr;":"↔","&Hcirc;":"Ĥ","&hcirc;":"ĥ","&hearts;":"♥","&hellip;":"…","&Hstrok;":"Ħ","&hstrok;":"ħ","&Iacute;":"Í","&iacute;":"í","&Ibreve;":"Ĭ","&ibreve;":"ĭ","&Icirc;":"Î","&icirc;":"î","&Idot;":"İ","&iexcl;":"¡","&Igrave;":"Ì","&igrave;":"ì","&IJlig;":"Ĳ","&ijlig;":"ĳ","&Imacr;":"Ī","&imacr;":"ī","&inodot;":"ı","&infin;":"∞","&int;":"∫","&Iogon;":"Į","&iogon;":"į","&Iota;":"Ι","&iota;":"ι","&iquest;":"¿","&isin;":"∈","&Itilde;":"Ĩ","&itilde;":"ĩ","&Iuml;":"Ï","&iuml;":"ï","&Jcirc;":"Ĵ","&jcirc;":"ĵ","&Kappa;":"Κ","&kappa;":"κ","&Kcedil;":"Ķ","&kcedil;":"ķ","&kgreen;":"ĸ","&Lacute;":"Ĺ","&lacute;":"ĺ","&Lambda;":"Λ","&lambda;":"λ","&laquo;":"«","&larr;":"←","&Lcaron;":"Ľ","&lcaron;":"ľ","&Lcedil;":"Ļ","&lcedil;":"ļ","&lceil;":"⌈","&ldquo;":"“","&le;":"≤","&lfloor;":"⌊","&Lmidot;":"Ŀ","&lmidot;":"ŀ","&lowast;":"∗","&loz;":"◊","&lrm;":"‎","&lsaquo;":"‹","&lsquo;":"‘","&Lstrok;":"Ł","&lstrok;":"ł","&lt;":"<","&macr;":"¯","&mdash;":"—","&micro;":"µ","&minus;":"−","&Mu;":"Μ","&mu;":"μ","&nabla;":"∇","&Nacute;":"Ń","&nacute;":"ń","&napos;":"ŉ","&nbsp;":" ","&Ncaron;":"Ň","&ncaron;":"ň","&Ncedil;":"Ņ","&ncedil;":"ņ","&ndash;":"–","&ne;":"≠","&NewLine;":"\n","&ni;":"∋","&not;":"¬","&notin;":"∉","&nsub;":"⊄","&Ntilde;":"Ñ","&ntilde;":"ñ","&Nu;":"Ν","&nu;":"ν","&Oacute;":"Ó","&oacute;":"ó","&Obreve;":"Ŏ","&obreve;":"ŏ","&Ocirc;":"Ô","&ocirc;":"ô","&Odblac;":"Ő","&odblac;":"ő","&OElig;":"Œ","&oelig;":"œ","&Ograve;":"Ò","&ograve;":"ò","&oline;":"‾","&Omacr;":"Ō","&omacr;":"ō","&Omega;":"Ω","&omega;":"ω","&Omicron;":"Ο","&omicron;":"ο","&oplus;":"⊕","&or;":"∨","&ordf;":"ª","&ordm;":"º","&Oslash;":"Ø","&oslash;":"ø","&Otilde;":"Õ","&otilde;":"õ","&otimes;":"⊗","&Ouml;":"Ö","&ouml;":"ö","&para;":"¶","&part;":"∂","&permil;":"‰","&perp;":"⊥","&Phi;":"Φ","&phi;":"φ","&Pi;":"Π","&pi;":"π","&piv;":"ϖ","&plusmn;":"±","&pound;":"£","&prime;":"′","&Prime;":"″","&prod;":"∏","&prop;":"∝","&Psi;":"Ψ","&psi;":"ψ","&quot;":"\"","&Racute;":"Ŕ","&racute;":"ŕ","&radic;":"√","&raquo;":"»","&rarr;":"→","&Rcaron;":"Ř","&rcaron;":"ř","&Rcedil;":"Ŗ","&rcedil;":"ŗ","&rceil;":"⌉","&rdquo;":"”","&reg;":"®","&rfloor;":"⌋","&Rho;":"Ρ","&rho;":"ρ","&rlm;":"‏","&rsaquo;":"›","&rsquo;":"’","&Sacute;":"Ś","&sacute;":"ś","&sbquo;":"‚","&Scaron;":"Š","&scaron;":"š","&Scedil;":"Ş","&scedil;":"ş","&Scirc;":"Ŝ","&scirc;":"ŝ","&sdot;":"⋅","&sect;":"§","&shy;":"­","&Sigma;":"Σ","&sigma;":"σ","&sigmaf;":"ς","&sim;":"∼","&spades;":"♠","&sub;":"⊂","&sube;":"⊆","&sum;":"∑","&sup;":"⊃","&sup1;":"¹","&sup2;":"²","&sup3;":"³","&supe;":"⊇","&szlig;":"ß","&Tab;":"\t","&Tau;":"Τ","&tau;":"τ","&Tcaron;":"Ť","&tcaron;":"ť","&Tcedil;":"Ţ","&tcedil;":"ţ","&there4;":"∴","&Theta;":"Θ","&theta;":"θ","&thetasym;":"ϑ","&thinsp;":" ","&THORN;":"Þ","&thorn;":"þ","&tilde;":"˜","&times;":"×","&trade;":"™","&Tstrok;":"Ŧ","&tstrok;":"ŧ","&Uacute;":"Ú","&uacute;":"ú","&uarr;":"↑","&Ubreve;":"Ŭ","&ubreve;":"ŭ","&Ucirc;":"Û","&ucirc;":"û","&Udblac;":"Ű","&udblac;":"ű","&Ugrave;":"Ù","&ugrave;":"ù","&Umacr;":"Ū","&umacr;":"ū","&uml;":"¨","&Uogon;":"Ų","&uogon;":"ų","&upsih;":"ϒ","&Upsilon;":"Υ","&upsilon;":"υ","&Uring;":"Ů","&uring;":"ů","&Utilde;":"Ũ","&utilde;":"ũ","&Uuml;":"Ü","&uuml;":"ü","&Wcirc;":"Ŵ","&wcirc;":"ŵ","&Xi;":"Ξ","&xi;":"ξ","&Yacute;":"Ý","&yacute;":"ý","&Ycirc;":"Ŷ","&ycirc;":"ŷ","&yen;":"¥","&yuml;":"ÿ","&Yuml;":"Ÿ","&Zeta;":"Ζ","&zeta;":"ζ","&zwj;":"‍","&zwnj;":"‌"}
+
 export function transformImage(value: string | Record<string, string>) {
   if (typeof value === 'string')
     return value
@@ -56,10 +58,10 @@ export function transformToAuthor(value: string | Record<string, string>) {
     }
 
     if (typeof value === 'string')
-        return value
+        return cleanHtmlCodes(value)
 
     if (value.name)
-        return value.name
+        return cleanHtmlCodes(value.name)
 
     if (Array.isArray(value)) {
         const array = value as any[];
@@ -70,12 +72,12 @@ export function transformToAuthor(value: string | Record<string, string>) {
             }
 
             if (first.name) {
-              return first.name;
+              return cleanHtmlCodes(first.name);
             }
         }
     } else if (typeof value === 'object') {
         if (value.name) {
-          return value.name;
+          return cleanHtmlCodes(value.name);
         }
     }
 
@@ -129,7 +131,7 @@ export function cleanString(str: string) {
     cleaned = cleaned.slice(1).trim()
   }
 
-  return cleaned
+  return cleanHtmlCodes(cleaned)
 }
 
 export function transformToCleanString(value: string) {
@@ -213,6 +215,16 @@ export function transformIngredients(value: Record<string, any>): string[] {
     return mappedItems
 
   return []
+}
+
+export function cleanHtmlCodes(str: string) {
+  if (!str || typeof str !== 'string') {
+    return str
+  }
+
+  const regex = new RegExp(Object.keys(htmlCodes).join('|'), 'g');
+  // @ts-ignore
+  return str.replace(regex, (match) => htmlCodes[match]);
 }
 
 const propertyTransformerMap = {

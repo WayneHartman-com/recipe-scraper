@@ -1,6 +1,6 @@
 {
   "name": "@waynehartman/recipe-scraper",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Extract recipe data from the web effortlessly",
   "publishConfig": {
     "access": "public"
