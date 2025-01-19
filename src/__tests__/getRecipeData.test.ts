@@ -39,7 +39,7 @@ describe('getRecipeData', () => {
         }
         expect(recipe.name).toBe('Creamy Courgette & Potato Bake');
         expect(recipe.author).toBe('GitHub Copilot');
-        expect(recipe.image).toBe('https://example.com/image.jpg');
+        expect(recipe.image).toStrictEqual(['https://example.com/image.jpg']);
         expect(recipe.description).toBe('A delicious creamy bake');
         expect(recipe.cookTime).toBe('1 hour');
         expect(recipe.prepTime).toBe('30 minutes');

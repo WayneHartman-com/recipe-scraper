@@ -5,13 +5,13 @@ const htmlCodes = {"&#9;":"\t","&#10;":"\n","&#32;":" ","&#33;":"!","&#35;":"#",
 
 export function transformImage(value: string | Record<string, string>) {
   if (typeof value === 'string')
-    return value
+    return [value]
 
   if (value.url)
-    return value.url
+    return [value.url]
 
   if (Array.isArray(value))
-    return value[0]
+    return value
 
   return value
 }
