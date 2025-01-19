@@ -1,18 +1,18 @@
 {
-  "name": "@dimfu/recipe-scraper",
-  "version": "0.3.0",
+  "name": "@waynehartman/recipe-scraper",
+  "version": "0.0.2",
   "description": "Extract recipe data from the web effortlessly",
   "publishConfig": {
     "access": "public"
   },
   "license": "MIT",
-  "homepage": "https://github.com/dimfu/recipe-scraper",
+  "homepage": "https://github.com/WayneHartman-com/recipe-scraper",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dimfu/recipe-scraper.git"
+    "url": "git+https://github.com/WayneHartman-com/recipe-scraper.git"
   },
   "bugs": {
-    "url": "https://github.com/dimfu/recipe-scraper/issues"
+    "url": "https://github.com/WayneHartman-com/recipe-scraper/issues"
   },
   "keywords": [
     "recipe",

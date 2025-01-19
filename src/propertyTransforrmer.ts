@@ -51,6 +51,10 @@ export function transformToString(value: string) {
 }
 
 export function transformToAuthor(value: string | Record<string, string>) {
+    if (!value) {
+        return undefined
+    }
+
     if (typeof value === 'string')
         return value
 
@@ -69,9 +73,13 @@ export function transformToAuthor(value: string | Record<string, string>) {
               return first.name;
             }
         }
+    } else if (typeof value === 'object') {
+        if (value.name) {
+          return value.name;
+        }
     }
 
-    return value
+    return undefined;
 }
 
 export function transformISOToString(dateObj: Record<string, any>) {

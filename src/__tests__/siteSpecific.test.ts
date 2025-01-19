@@ -143,4 +143,62 @@ describe('getRecipeData', () => {
         ]);
         expect(recipe.keywords).toEqual(undefined);
     });
+
+    it('should correctly parse information from a sample recipe from thecookierookie.com', async () => {
+        const url = 'https://www.thecookierookie.com/chicken-tacos/#wprm-recipe-container-30303'
+        const htmlFilePath = path.resolve(__dirname, 'html/the-cookie-rookie.html')
+        const html = fs.readFileSync(htmlFilePath, 'utf-8')
+        mockedAxios.get.mockResolvedValue({ data: html })
+
+        const recipe = await getRecipeData(url);
+        if (!recipe) {
+            throw new Error('Recipe not found');
+        }
+        expect(recipe.name).toBe('Baked Chicken Tacos Recipe');
+        expect(recipe.author).toBe(undefined);
+        expect(recipe.image).toBe('https://www.thecookierookie.com/wp-content/uploads/2023/04/chicken-tacos-featured.jpg');
+        expect(recipe.description).toBe('How to make the best baked chicken tacos for a crowd! Lots of tacos made in one baking dish for family dinners, Cinco de Mayo, and more.Step-by-step photos can be seen below the recipe card.');
+        expect(recipe.cookTime).toBe('10 minutes');
+        expect(recipe.prepTime).toBe('15 minutes');
+        expect(recipe.totalTime).toBe('25 minutes');
+        expect(recipe.recipeYield).toBe('10');
+        expect(recipe.recipeIngredients).toEqual([
+            "1 tablespoon olive oil",
+            "1/2 pound shredded cooked chicken (We used Rotisserie chicken)",
+            "1 ounce taco seasoning ((click for recipe!))",
+            "1/2 cup diced onion",
+            "14.5 ounces diced tomatoes (fully drained (1 can))",
+            "4.5 ounces diced green chiles (fully drained (1 can))",
+            "10 hard taco shells (We used Old El Paso Stand &#39;N Stuff)",
+            "8 ounces refried beans ((1/2 can))",
+            "2 cups shredded Mexican blend cheese",
+            "Sliced jalapeños",
+            "Sour cream",
+            "Salsa",
+            "Shredded lettuce",
+            "Chopped fresh cilantro",
+        ]);
+        expect(recipe.recipeInstructions).toEqual([
+            "Preheat oven to 400°F. Spray a 9x13-inch baking dish with nonstick spray.",
+            "Heat the olive oil over medium heat in a medium skillet.",
+            "Add onion to skillet and cook for 2-3 minutes, or until the onion is translucent and fragrant.",
+            "Stir in the chicken, taco seasoning, tomatoes (fully drained), and green chiles (fully drained). Stir to combine fully. Reduce to simmer and allow to cook for 5-8 minutes.",
+            "Place the taco shells in the baking dish, standing up. We were able to fit 10 taco shells in the dish by adding 2 on each side.",
+            "Bake the taco shells for 5 minutes by themselves to allow them to crisp up. Remove from the oven.",
+            "Spoon 1 tablespoon of beans into the bottom of each taco shell. Top with the chicken mixture, almost to the top of each shell.",
+            "Sprinkle each shell generously with shredded cheese, the more the better!",
+            "Bake for 7-10 minutes, or until cheese is fully melted and the edges of the shells are browned.",
+            "Remove from the oven and top with your favorite items such as jalapenos, sour cream, shredded lettuce, cilantro, and salsa.",
+        ]);
+        expect(recipe.recipeCategories).toEqual([
+            'Main Course'
+        ]);
+        expect(recipe.recipeCuisines).toEqual([
+            'Mexican'
+        ]);
+        expect(recipe.keywords).toEqual([
+            'baked tacos',
+            'chicken tacos'
+        ]);
+    });
 })
