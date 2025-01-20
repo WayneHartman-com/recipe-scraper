@@ -18,6 +18,8 @@ interface WithGraph extends WithContext<Recipe> {
 const DEFAULT_OPTIONS = {
   maxRedirects: 5,
   timeout: 10000,
+  lang: 'en-US,en;q=0.9',
+  userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
 }
 
 function consolidateRecipeProperties(recipe: Record<string, any>): IRecipe {
@@ -74,7 +76,9 @@ export default async function getRecipeData(input: string | Partial<Options>, in
     const response: AxiosResponse<string> = await axios.get(siteUrl, {
       responseType: 'text',
       headers: {
+        'User-Agent': options.userAgent,
         'Accept-Language': options.lang,
+        'Accept-Encoding': 'gzip, deflate, br',
       },
       timeout: options.timeout,
       maxRedirects: options.maxRedirects,
