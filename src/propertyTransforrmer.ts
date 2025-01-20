@@ -10,10 +10,23 @@ export function transformImage(value: string | Record<string, string>) {
   if (value.url)
     return [value.url]
 
-  if (Array.isArray(value))
-    return value
+  if (Array.isArray(value)) {
+    return value.map((item) => {
+      if (typeof item === 'string') {
+        return item
+      }
 
-  return value
+      if (typeof item === 'object') {
+        if (item.url) {
+          return item.url;
+        }
+      }
+
+      return item
+    }).filter((item) => item !== undefined);
+  }
+
+  return value;
 }
 
 export function transformToList(value: string | Record<string, string>) {
@@ -104,7 +117,12 @@ export function transformISOToString(dateObj: Record<string, any>) {
   if (dateObj.seconds)
     date += dateObj.seconds > 1 ? `${dateObj.seconds} seconds ` : `${dateObj.seconds} second `
 
-  return date.trim()
+  const final = date.trim()
+  if (final.length === 0) {
+    return undefined;
+  }
+
+  return final;
 }
 
 export function transformToTime(value: string) {

@@ -252,5 +252,83 @@ describe('getRecipeData', () => {
             'potato wedges',
         ]);
     });
+
+    it('should correctly parse information from a sample recipe from delish.com', async () => {
+        const url = 'https://www.delish.com/cooking/recipe-ideas/a63349745/sweet-and-sour-tofu-recipe/'
+        const htmlFilePath = path.resolve(__dirname, 'html/delish.html')
+        const html = fs.readFileSync(htmlFilePath, 'utf-8')
+        mockedAxios.get.mockResolvedValue({ data: html })
+
+        const recipe = await getRecipeData(url);
+        if (!recipe) {
+            throw new Error('Recipe not found');
+        }
+        expect(recipe.name).toBe('Sweet & Sour Tofu');
+        expect(recipe.author).toBe("Gabby Romero");
+        expect(recipe.image).toStrictEqual([
+            "https://hips.hearstapps.com/hmg-prod/images/del129924-sweet-sour-tofu-web-5004-rl-index-676045c11d068.jpg?crop=0.502xw:1.00xh;0.229xw,0&resize=1200:*",
+            "https://hips.hearstapps.com/hmg-prod/images/del129924-sweet-sour-tofu-web-5004-rl-index-676045c11d068.jpg?crop=0.6666666666666667xw:1xh;center,top&resize=1200:*",
+            "https://hips.hearstapps.com/hmg-prod/images/del129924-sweet-sour-tofu-web-5004-rl-index-676045c11d068.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*",
+        ]);
+        expect(recipe.description).toBe('The combination of savory, tangy, and sweet flavors pairs perfectly with tofu in this easy vegetarian dinner.');
+        expect(recipe.cookTime).toBe(undefined);
+        expect(recipe.prepTime).toBe('15 minutes');
+        expect(recipe.totalTime).toBe('1 hour 15 minutes');
+        expect(recipe.recipeYield).toBe('4 serving(s)');
+        expect(recipe.recipeIngredients).toEqual([
+            "14 oz. extra-firm tofu",
+            "1 small red onion",
+            "1 green bell pepper",
+            "1 red bell pepper",
+            "1 (1\") piece ginger, peeled",
+            "2 garlic cloves, peeled",
+            "1/2 c. canned pineapple chunks, plus 1/3 cup pineapple juice, divided",
+            "1/3 c. low-sodium vegetable broth",
+            "3 tbsp. unseasoned rice vinegar",
+            "2 tbsp. reduced-sodium soy sauce or tamari",
+            "1 tbsp. ketchup",
+            "1 tbsp. light brown sugar",
+            "1 tbsp. plus 1/3 cup cornstarch, divided",
+            "4 tbsp. neutral oil, divided",
+            "Kosher salt",
+            "Steamed white rice, for serving",
+            "Sesame seeds, for serving (optional)",
+        ]);
+        expect(recipe.recipeInstructions).toStrictEqual([
+            "Place 3 layers of paper towels or a clean kitchen towel on a plate. Place tofu on towels and cover with another 3 layers of towels or another clean kitchen towel. Place a heavy can or skillet on top of tofu to press moisture out, pouring off excess water and replacing towels as they get soaked, 30 to 45 minutes (you can do this with a tofu press if you have one).",
+            "Meanwhile, arrange a rack in center of oven; preheat to 425°. Cut onion and bell peppers into 1\" pieces. Into a medium bowl or large measuring cup, grate ginger and garlic. Add pineapple juice, broth, vinegar, soy sauce, ketchup, brown sugar, and 1 Tbsp. cornstarch and stir to combine.",
+            "Break tofu into rough 1\" pieces and transfer to a large bowl; season with 1 tsp. salt. Drizzle with 1 Tbsp. oil and gently toss tofu to coat. Sprinkle with remaining 1/3 cup cornstarch and gently toss until tofu is coated. Arrange on a parchment-lined baking sheet and drizzle with 2 Tbsp. oil.",
+            "Bake tofu, turning halfway through, until light brown and crisp, 25 to 30 minutes.",
+            "When tofu has about 12 minutes remaining, in a large skillet or wok over medium-high heat, heat remaining 1 Tbsp. oil. Add onion and bell peppers; season with salt, then toss to coat vegetables with oil. Cook, stirring frequently, until vegetables start to soften and blister on the surface, 4 to 5 minutes. Transfer vegetables to a plate.",
+            "Reduce heat to medium. Whisk sauce to reincorporate cornstarch and pour into skillet. Bring to a simmer and cook, stirring occasionally, until slightly thickened, about 4 minutes. Add vegetables, tofu, and pineapple chunks to skillet and toss to coat in sauce.",
+            "Divide rice among bowls. Spoon tofu mixture over. Top with sesame seeds (if using).",
+        ]);
+        expect(recipe.recipeCategories).toEqual([
+            "dairy-free",
+            "gluten-free",
+            "vegan",
+            "vegetarian",
+            "dinner",
+            "main dish",
+        ]);
+        expect(recipe.recipeCuisines).toEqual([
+            "American",
+            "Asian",
+        ]);
+        expect(recipe.keywords).toEqual([
+            "content-type: Recipe",
+            "locale: US",
+            "displayType: recipe",
+            "American, Asian, dairy-free, dinner, gluten-free, main dish, vegan, vegetarian",
+            "NUTRITION: dairy-free",
+            "NUTRITION: gluten-free",
+            "NUTRITION: vegan",
+            "NUTRITION: vegetarian",
+            "CATEGORY: dinner",
+            "CATEGORY: main dish",
+            "TOTALTIME: 01:15:00",
+            "FILTERTIME: >1HR",
+        ]);
+    });
 })
 
