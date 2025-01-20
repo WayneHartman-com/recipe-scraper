@@ -23,8 +23,13 @@ export function transformToList(value: string | Record<string, string>) {
 
     return [value]
   }
-  if (Array.isArray(value))
-    return value
+  if (Array.isArray(value)) {
+    const array = value as string[]
+    const filtered = array.filter((item) => {
+        return (typeof item === 'string');
+    })
+    return filtered
+  }
 
   return value
 }
@@ -150,7 +155,7 @@ export function transformInstructions(value: string | Record<string, any>) {
   if (Array.isArray(value)) {
     const firstItem = value[0]
     if (typeof firstItem === 'string')
-      return value.map(item => cleanString(item))
+      return value.map(item => cleanString(item)).filter((item) => item !== undefined)
 
     if (typeof firstItem === 'object' && !Array.isArray(firstItem)) {
       const itemList = firstItem.itemListElement;
@@ -160,7 +165,7 @@ export function transformInstructions(value: string | Record<string, any>) {
             return cleanString(item.text)
 
           return undefined
-        })
+        }).filter((item) => item !== undefined)
       }
     }
 
@@ -169,7 +174,7 @@ export function transformInstructions(value: string | Record<string, any>) {
         return cleanString(item.text)
 
       return undefined
-    })
+    }).filter((item) => item !== undefined)
   }
 }
 

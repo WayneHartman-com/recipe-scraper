@@ -206,4 +206,51 @@ describe('getRecipeData', () => {
             'chicken tacos'
         ]);
     });
+
+    it('should correctly parse information from a sample recipe from tamingtwins.com', async () => {
+        const url = 'https://www.tamingtwins.com/homemade-potato-wedges/'
+        const htmlFilePath = path.resolve(__dirname, 'html/taming-twins.html')
+        const html = fs.readFileSync(htmlFilePath, 'utf-8')
+        mockedAxios.get.mockResolvedValue({ data: html })
+
+        const recipe = await getRecipeData(url);
+        if (!recipe) {
+            throw new Error('Recipe not found');
+        }
+        expect(recipe.name).toBe('Easiest Ever Potato Wedges {Air Fryer or Oven}');
+        expect(recipe.author).toBe(undefined);
+        expect(recipe.image).toStrictEqual([
+            "https://www.tamingtwins.com/wp-content/uploads/2024/07/potato-wedges-10.jpg",
+            "https://www.tamingtwins.com/wp-content/uploads/2024/07/potato-wedges-10-500x500.jpg",
+            "https://www.tamingtwins.com/wp-content/uploads/2024/07/potato-wedges-10-500x375.jpg",
+            "https://www.tamingtwins.com/wp-content/uploads/2024/07/potato-wedges-10-480x270.jpg",
+        ]);
+        expect(recipe.description).toBe('These homemade Potato Wedges can be made in the air fryer or oven with ease. They’re fresh, flavour-packed and so easy to do. Follow a few simple tips and tricks to get the VERY best family favourite side dish.');
+        expect(recipe.cookTime).toBe('25 minutes');
+        expect(recipe.prepTime).toBe(undefined);
+        expect(recipe.totalTime).toBe('25 minutes');
+        expect(recipe.recipeYield).toBe('4');
+        expect(recipe.recipeIngredients).toEqual([
+            "400 g Potatoes (Unpeeled)",
+            "1 tsp Garlic granules",
+            "1 tsp Sweet smoked paprika (Optional)",
+            "1 tbsp Olive oil",
+            "Sea salt and freshly ground black pepper",
+        ]);
+        expect(recipe.recipeInstructions).toStrictEqual([
+            "Cut the potatoes in half lengthways, then in quarters and then keep cutting in half again until you have evenly shaped and thickness of wedges (1 cm thickness). (Or use an apple divider!)",
+            "Dry off the wedges with a clean kitchen towel and then place into a large bowl.",
+            "Add the rest of the ingredients and mix really well.",
+        ]);
+        expect(recipe.recipeCategories).toEqual([
+            'Side Dish'
+        ]);
+        expect(recipe.recipeCuisines).toEqual([
+            'Family Food'
+        ]);
+        expect(recipe.keywords).toEqual([
+            'potato wedges',
+        ]);
+    });
 })
+
