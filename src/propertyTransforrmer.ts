@@ -23,7 +23,7 @@ export function transformImage(value: string | Record<string, string>) {
       }
 
       return item
-    }).filter((item) => item !== undefined);
+    }).filter((item) => item !== undefined && item !== '');
   }
 
   return value;
