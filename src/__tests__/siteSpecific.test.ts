@@ -103,7 +103,7 @@ describe('getRecipeData', () => {
     });
 
     it('should correctly parse information from a sample recipe from allrecipes.com', async () => {
-        const url = 'https://www.allrecipes.com/recipe/14554/sirloin-steak-with-garlic-butter/'
+        const url = 'https://www.allrecipes.com/recipe/236990/chef-johns-barbecue-chicken/'
         const htmlFilePath = path.resolve(__dirname, 'html/all-recipes.html')
         const html = fs.readFileSync(htmlFilePath, 'utf-8')
         mockedAxios.get.mockResolvedValue({ data: html })
@@ -112,28 +112,32 @@ describe('getRecipeData', () => {
         if (!recipe) {
             throw new Error('Recipe not found');
         }
-        expect(recipe.name).toBe('Sirloin Steak with Garlic Butter');
-        expect(recipe.author).toBe('Maryellen');
-        expect(recipe.image).toStrictEqual(['https://www.allrecipes.com/thmb/OJ28fIFte6Pyg93ML8IM-APbu1Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-14554-sirloin-steak-with-garlic-butter-hero-4x3-d12fa79836754fcf850388e4677bbf55.jpg']);
-        expect(recipe.description).toBe('This grilled sirloin steak recipe includes a super garlicky melted butter that\'s made with freshly minced garlic and garlic powder. Simply delicious!');
-        expect(recipe.cookTime).toBe('10 minutes');
+        expect(recipe.name).toBe('Chef John\'s Barbecue Chicken');
+        expect(recipe.author).toBe('John Mitzewich');
+        expect(recipe.image).toStrictEqual(['https://www.allrecipes.com/thmb/qjBKo6LtXTJFArnpJNPUgrvCYyw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/236990-Chef-John-Barbecue-Chicken-ddmfs-4x3-2856-261a22bfd2154315ba2f0fc4c6f86953.jpg']);
+        expect(recipe.description).toBe('Chef John\'s grilled barbecue chicken is perfect every time. Say goodbye to a burned BBQ coating and hello to a thick, sticky glaze that permeates the meat.');
+        expect(recipe.cookTime).toBe('40 minutes');
         expect(recipe.prepTime).toBe('20 minutes');
-        expect(recipe.totalTime).toBe('30 minutes');
-        expect(recipe.recipeYield).toBe('8');
+        expect(recipe.totalTime).toBe('120 minutes');
+        expect(recipe.recipeYield).toBe('6');
         expect(recipe.recipeIngredients).toEqual([
-            '0.5 cup butter',
-            '4 cloves garlic, minced',
-            '2 teaspoons garlic powder',
-            '4 pounds beef top sirloin steaks',
-            'salt and pepper to taste',
+            "1 whole chicken, cut into halves",
+            "0.25 cup rice vinegar",
+            "2 tablespoons barbecue sauce",
+            "2 cloves garlic, crushed",
+            "1 tablespoon salt",
+            "1 teaspoon ground black pepper",
+            "1 teaspoon paprika",
+            "1 teaspoon onion powder",
+            "0.5 teaspoon cayenne pepper",
+            "0.5 cup barbecue sauce, or as needed",
         ]);
         expect(recipe.recipeInstructions).toEqual([
-            'Gather all ingredients. Preheat an outdoor grill for high heat and lightly oil the grate.',
-            'Melt butter in a small saucepan over medium-low heat.',
-            'Stir in minced garlic and garlic powder. Set aside.',
-            'Season both sides of each steak with salt and pepper.',
-            'Place steaks on preheated grill and cook 4 to 5 minutes per side. An instant-read thermometer inserted into the center should read 140 degrees F (60 degrees C) for medium doneness.',
-            'Transfer steaks to warmed plates; brush the tops liberally with garlic butter and allow to rest for 2 to 3 minutes before serving.',
+            "Cut 1/2-inch deep slashes in the skin-side of each chicken half: two cuts in each breast, two in each thigh, and one in each leg. Remove wing tips.",
+            "Whisk vinegar, 2 tablespoons barbecue sauce, and garlic together in a large bowl. Place chicken in the bowl and turn to coat. Arrange chicken halves in the bottom of the bowl with the cut sides down; cover with plastic wrap and refrigerate for 1 hour.",
+            "Preheat an outdoor grill for medium-high heat and lightly oil the grate.",
+            "Remove chicken from the bowl and pat dry with paper towels; discard any remaining marinade. Place chicken halves, skin-side up, on a plate and season with salt, pepper, paprika, onion powder, and cayenne pepper.",
+            "Cook chicken, skin-side down, on the preheated grill until grill marks appear, 3 to 4 minutes. Turn chicken over, close the grill lid, and cook, basting with remaining barbecue sauce every 6 minutes, until no longer pink at the bone and the juices run clear, about 35 minutes. An instant-read thermometer inserted into the thickest part of the thigh, near the bone should read 165 degrees F (74 degrees C).",
         ]);
         expect(recipe.recipeCategories).toEqual([
             'Dinner',

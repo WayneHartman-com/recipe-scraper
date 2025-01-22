@@ -143,6 +143,10 @@ export default async function getRecipeData(input: string | Partial<Options>, in
     recipe = recipeData.properties
   }
 
+  if (!recipe) {
+    throw new Error('Recipe not found on page');
+  }
+
   const prettifiedRecipe = prettifyRecipe(recipe as Recipe, siteUrl)
   if (prettifiedRecipe !== undefined) {
     const response = validate({ name: prettifiedRecipe.name, recipeIngredients: prettifiedRecipe.recipeIngredients }, schema)

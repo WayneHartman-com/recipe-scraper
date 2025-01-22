@@ -111,4 +111,19 @@ describe('getRecipeData', () => {
         expect(recipe.recipeCuisines).toEqual(['American']);
         expect(recipe.keywords).toEqual( ['Lunch', 'Burgers and sandwiches', 'Chicken']);
     });
+
+    it('should fetch and return recipe data from Simply Recipes', async () => {
+        const url = 'https://www.simplyrecipes.com/barbecue-meatloaf-recipe-8775220';
+
+        let error;
+
+        try {
+            await getRecipeData(url);
+        } catch (err) {
+            // @ts-ignore
+            error = err.message;
+        }
+
+        expect(error).toBe('Recipe not found on page');
+    });
 });

@@ -49,7 +49,7 @@ export function transformToList(value: string | Record<string, string>) {
 
 export function transformToString(value: string) {
   if (typeof value === 'string')
-    return value
+    return cleanHtmlCodes(value);
 
   if (Array.isArray(value)) {
     const array = value as [];
@@ -58,7 +58,7 @@ export function transformToString(value: string) {
         return (typeof item === 'string');
       });
       if (filtered.length > 0) {
-        return filtered[0];
+        return cleanHtmlCodes(filtered[0]);
       }
     }
   }
